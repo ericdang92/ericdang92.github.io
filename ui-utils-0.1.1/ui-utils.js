@@ -749,24 +749,11 @@ angular.module('ui.mask', [])
             iElement.unbind('mouseout', mouseoutHandler);
           }
 
-          function sleep(milliseconds) {
-            var start = new Date().getTime();
-            for (var i = 0; i < 1e7; i++) {
-              if ((new Date().getTime() - start) > milliseconds){
-                break;
-              }
-            }
-          }
-
           //var lastInputEvent = new Date(); 
           //var lastKeyupEvent = new Date(); 
           function eventHandler(e){
             //console.log(e.type + " at " + new Date().getTime()); 
             /*jshint validthis: true */
-            console.log("Sleeping"); 
-            sleep(50); 
-            console.log("Awake"); 
-
             e = e || {};
             // Allows more efficient minification
             var eventWhich = e.which,
