@@ -12,6 +12,7 @@
 
 		function ctrl($scope) {
 			$scope.initializedPhoneNumber = '3133536767';
+			$scope.phoneNumber6 = '1234123412'; 
 		}
 	</script>
 </head>
@@ -33,17 +34,14 @@
 		<br>
 
 		<h2>ui-mask</h2>
-		<input type="text" name="phoneNumber5" ng-model="phoneNumber5" ui-mask="(999) 999-9999"><br>
-		<span ng-bind="phoneNumber5">-</span>
+		<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="phoneNumber5" autocorrect="off" ng-model="phoneNumber5" ui-mask="(999) 999-9999"><br>
+		Value: <span ng-bind="phoneNumber5">-</span>
 		<br>
-		<input type="text" name="phoneNumber6" ng-model="phoneNumber6" ui-mask="(999) 999-9999"><br>
-		<span ng-bind="phoneNumber6">-</span>
+		<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="phoneNumber6" autocorrect="off" ng-model="phoneNumber6" ui-mask="(999) 999-9999"><br>
+		Value: <span ng-bind="phoneNumber6">-</span>
 		<br>
-		<input type="text" name="phoneNumber7" ng-model="phoneNumber7" ui-mask="(999) 999-9999"><br>
-		<span ng-bind="phoneNumber7">-</span>
-		<br>
-		<input type="text" name="initializedPhoneNumber2" ng-model="initializedPhoneNumber2" ui-mask="(999) 999-9999"><br>
-		<span ng-bind="initializedPhoneNumber2">-</span>
+		<input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="phoneNumber7" autocorrect="off" ng-model="phoneNumber7" ui-mask="(999) 999-9999"><br>
+		Value: <span ng-bind="phoneNumber7">-</span>
 		<br>
 
 	</form>
