@@ -741,7 +741,7 @@ angular.module('ui.mask', [])
             }
           }
 
-          iElement.bind('mousedown mouseup', mouseDownUpHandler);
+          //iElement.bind('mousedown mouseup', mouseDownUpHandler);
 
           function mouseoutHandler(){
             /*jshint validthis: true */
@@ -753,7 +753,7 @@ angular.module('ui.mask', [])
           //var lastKeyupEvent = new Date(); 
           function eventHandler(e){
             //console.log(e.type + " at " + new Date().getTime()); 
-            console.log(iElement[0].selectionStart); 
+            //console.log(iElement[0].selectionStart); 
             /*jshint validthis: true */
             e = e || {};
             // Allows more efficient minification
