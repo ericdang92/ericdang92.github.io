@@ -750,7 +750,7 @@ angular.module('ui.mask', [])
           }
 
           function eventHandler(e){
-            console.log(e.type); 
+            console.log(e.type + " at " + new Date().getTime()); 
             /*jshint validthis: true */
             e = e || {};
             // Allows more efficient minification
