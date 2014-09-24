@@ -13,6 +13,7 @@
 		function ctrl($scope) {
 			$scope.initializedPhoneNumber = '3133536767';
 			$scope.phoneNumber6 = '1234123412'; 
+			$scope.phoneNumber5 = {}; 
 		}
 	</script>
 </head>
@@ -34,8 +35,8 @@
 		<br>
 
 		<h2>ui-mask</h2>
-		<input type="tel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="phoneNumber5" ng-model="phoneNumber5" ui-mask="(999) 999-9999"><br>
-		Value: <span ng-bind="phoneNumber5">-</span>
+		<input type="tel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="phoneNumber5" ng-model="phoneNumber5.testing" ui-mask="(999) 999-9999"><br>
+		Value: <span ng-bind="phoneNumber5.testing">-</span>
 		<br>
 		<input type="tel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="phoneNumber6" ng-model="phoneNumber6" ui-mask="(999) 999-9999"><br>
 		Value: <span ng-bind="phoneNumber6">-</span>
