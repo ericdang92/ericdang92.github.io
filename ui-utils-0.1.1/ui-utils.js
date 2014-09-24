@@ -749,6 +749,8 @@ angular.module('ui.mask', [])
             iElement.unbind('mouseout', mouseoutHandler);
           }
 
+          var lastInputEvent = new Date(); 
+          var lastKeyupEvent = new Date(); 
           function eventHandler(e){
             console.log(e.type + " at " + new Date().getTime()); 
             /*jshint validthis: true */
@@ -759,6 +761,21 @@ angular.module('ui.mask', [])
 
             // Prevent shift and ctrl from mucking with old values
             if (eventWhich === 16 || eventWhich === 91) { return;}
+
+            var timestamp = new Date(); 
+            if(eventType === "keyup") {
+              if(timestamp.getTime() - lastKeyupEvent.getTime() < 50) {
+                console.log("keyup event rejected"); 
+                return; 
+              }
+              lastKeyupEvent = timestamp; 
+            } else if(eventType === "input") {
+              if(timestamp.getTime() - lastInputEvent.getTime() < 50) {
+                console.log("input event rejected");
+                return; 
+              }
+              lastInputEvent = timestamp; 
+            }
 
             var val = iElement.val(),
               valOld = oldValue,
