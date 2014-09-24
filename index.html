@@ -6,29 +6,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.2.5/angular-locale_pt-br.js"></script>
 	<script src="angular-input-masks/releases/masks.js"></script>
+	<script src="ui-utils-0.1.1/ui-utils.js"></script>
 	<script>
-		angular.module('demo', ['ui.utils.masks']);
+		angular.module('demo', ['ui.utils.masks', 'ui.mask']);
 
 		function ctrl($scope) {
-			$scope.numberWith2Decimals = -1234.178;
-			$scope.percentageWithDefaultDecimals = 0.7654;
-
-			$scope.initializedCpf = '35244457640';
-			$scope.initializedCnpj = '13883875000120';
-			$scope.initializedCpfCnpj1 = '56338332958';
-			$scope.initializedCpfCnpj2 = '23212161000144';
-
-			$scope.defaultMoney = 15312;
-
 			$scope.initializedPhoneNumber = '3133536767';
-
-			$scope.initializedCep = '30112010';
-
-			$scope.states = ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA',
-				'MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR',
-				'RS','SC','SE','SP','TO'];
-			$scope.initializedState = 'SP';
-			$scope.initializedIE = 'P3588747709710';
 		}
 	</script>
 </head>
@@ -47,6 +30,20 @@
 		<br>
 		<input type="text" name="initializedPhoneNumber" ng-model="initializedPhoneNumber" my-phone-number><br>
 		<span ng-bind="initializedPhoneNumber">-</span>
+		<br>
+
+		<h2>ui-mask</h2>
+		<input type="text" name="phoneNumber5" ng-model="phoneNumber5" ui-mask="(999) 999-9999"><br>
+		<span ng-bind="phoneNumber5">-</span>
+		<br>
+		<input type="text" name="phoneNumber6" ng-model="phoneNumber6" ui-mask="(999) 999-9999"><br>
+		<span ng-bind="phoneNumber6">-</span>
+		<br>
+		<input type="text" name="phoneNumber7" ng-model="phoneNumber7" ui-mask="(999) 999-9999"><br>
+		<span ng-bind="phoneNumber7">-</span>
+		<br>
+		<input type="text" name="initializedPhoneNumber2" ng-model="initializedPhoneNumber2" ui-mask="(999) 999-9999"><br>
+		<span ng-bind="initializedPhoneNumber2">-</span>
 		<br>
 
 	</form>

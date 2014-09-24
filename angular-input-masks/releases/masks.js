@@ -433,9 +433,26 @@ if (objectTypes[typeof module]) {
 					var cleanValue = clearValue(value);
 					var formatedValue = applyPhoneMask(cleanValue);
 
+					/*console.log("Here"); 
+					console.log(element[0].selectionStart); 
+					console.log(formatedValue.length); 
+					console.log(cleanValue.length); 
+
+
+
+					
+					var cleanCharsBeforeStart = clearValue(value.substring(0, element[0].selectionStart)); 
+					console.log(cleanCharsBeforeStart);
+					var charsBeforeStart = applyPhoneMask(cleanCharsBeforeStart); 
+					console.log(charsBeforeStart); 
+					var start = element[0].selectionStart + charsBeforeStart.length - cleanCharsBeforeStart.length;
+					console.log(start); 
+*/
+
 					if (ctrl.$viewValue !== formatedValue) {
 						ctrl.$setViewValue(formatedValue);
 						ctrl.$render();
+						//element[0].setSelectionRange(start, start);
 					}
 
 					if(cleanValue.length < 10) {
@@ -444,8 +461,26 @@ if (objectTypes[typeof module]) {
 						return clearValue(formatedValue);
 					}
 
-					
 				});
+
+				/*ctrl.$parsers.push(function(val) {
+			        var cleaned = clean(val);
+
+			        // Avoid infinite loop of $setViewValue <-> $parsers
+			        if (cleaned === val) return val;
+
+			        var start = el.selectionStart;
+			        var end = el.selectionEnd + cleaned.length - val.length;
+
+			        // element.val(cleaned) does not behave with
+			        // repeated invalid elements
+			        ngModelController.$setViewValue(cleaned);
+			        ngModelController.$render();
+
+			        el.setSelectionRange(start, end);
+			        return cleaned;
+			    });*/
+
 			}
 		};
 	})
