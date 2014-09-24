@@ -599,7 +599,7 @@ angular.module('ui.mask', [])
             }
             iElement.bind('blur', blurHandler);
             iElement.bind('mousedown mouseup', mouseDownUpHandler);
-            iElement.bind('input click focus', eventHandler);
+            iElement.bind('input keyup click', eventHandler);
             eventsBound = true;
           }
 
@@ -611,9 +611,8 @@ angular.module('ui.mask', [])
             iElement.unbind('mousedown', mouseDownUpHandler);
             iElement.unbind('mouseup', mouseDownUpHandler);
             iElement.unbind('input', eventHandler);
-            
+            iElement.unbind('keyup', eventHandler);
             iElement.unbind('click', eventHandler);
-            iElement.unbind('focus', eventHandler);
             eventsBound = false;
           }
 
