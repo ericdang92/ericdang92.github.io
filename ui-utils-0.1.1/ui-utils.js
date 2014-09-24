@@ -762,7 +762,7 @@ angular.module('ui.mask', [])
 
             var elapsed = new Date().getTime() - lastEvent.getTime();
             lastEvent = new Date(); 
-            if(elapsed < 10) {
+            if(elapsed < 100) {
               return; 
             } 
 
