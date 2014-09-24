@@ -599,7 +599,7 @@ angular.module('ui.mask', [])
             }
             iElement.bind('blur', blurHandler);
             iElement.bind('mousedown mouseup', mouseDownUpHandler);
-            iElement.bind('input keyup click focus', eventHandler);
+            iElement.bind('input click focus', eventHandler);
             eventsBound = true;
           }
 
@@ -611,7 +611,7 @@ angular.module('ui.mask', [])
             iElement.unbind('mousedown', mouseDownUpHandler);
             iElement.unbind('mouseup', mouseDownUpHandler);
             iElement.unbind('input', eventHandler);
-            iElement.unbind('keyup', eventHandler);
+            
             iElement.unbind('click', eventHandler);
             iElement.unbind('focus', eventHandler);
             eventsBound = false;
@@ -749,7 +749,6 @@ angular.module('ui.mask', [])
             iElement.unbind('mouseout', mouseoutHandler);
           }
 
-          var lastEvent = new Date(); 
           function eventHandler(e){
             /*jshint validthis: true */
             e = e || {};
@@ -759,12 +758,6 @@ angular.module('ui.mask', [])
 
             // Prevent shift and ctrl from mucking with old values
             if (eventWhich === 16 || eventWhich === 91) { return;}
-
-            var elapsed = new Date().getTime() - lastEvent.getTime();
-            lastEvent = new Date(); 
-            if(elapsed < 100) {
-              return; 
-            } 
 
             var val = iElement.val(),
               valOld = oldValue,
