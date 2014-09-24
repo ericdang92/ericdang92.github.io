@@ -723,6 +723,7 @@ angular.module('ui.mask', [])
           function blurHandler(){
             oldCaretPosition = 0;
             oldSelectionLength = 0;
+            //Removed this because it doesn't allow for partial input.
             /*if (!isValid || value.length === 0) {
               valueMasked = '';
               iElement.val('');
@@ -748,6 +749,7 @@ angular.module('ui.mask', [])
             iElement.unbind('mouseout', mouseoutHandler);
           }
 
+          var lastEvent = new Date(); 
           function eventHandler(e){
             /*jshint validthis: true */
             e = e || {};
@@ -757,6 +759,12 @@ angular.module('ui.mask', [])
 
             // Prevent shift and ctrl from mucking with old values
             if (eventWhich === 16 || eventWhich === 91) { return;}
+
+            var elapsed = new Date().getTime() - lastEvent.getTime();
+            lastEvent = new Date(); 
+            if(elapsed < 10) {
+              return; 
+            } 
 
             var val = iElement.val(),
               valOld = oldValue,
