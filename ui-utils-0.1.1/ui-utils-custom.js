@@ -453,7 +453,8 @@ angular.module('ui.mask', [])
       '9': /\d/,
       'A': /[a-zA-Z]/,
       '*': /[a-zA-Z0-9]/
-    }
+    },
+    'allowPartial': false
   })
   .directive('uiMask', ['uiMaskConfig', function (maskConfig) {
     return {
@@ -507,7 +508,7 @@ angular.module('ui.mask', [])
             }
             value = unmaskValue(fromModelValue || '');
             isValid = validateValue(value);
-            controller.$setValidity('mask', isValid);
+
             return isValid && value.length ? maskValue(value) : undefined;
           }
 
@@ -522,7 +523,6 @@ angular.module('ui.mask', [])
             // this parser is called, which causes what the user sees in the input
             // to be out-of-sync with what the controller's $viewValue is set to.
             controller.$viewValue = value.length ? maskValue(value) : '';
-            controller.$setValidity('mask', isValid);
             if (value === '' && controller.$error.required !== undefined) {
               controller.$setValidity('required', false);
             }
@@ -619,18 +619,21 @@ angular.module('ui.mask', [])
 
           function validateValue(value){
             // Zero-length value validity is ngRequired's determination
+            //var isValid = value.length ? value.length >= minRequiredLength : true;
             return value.length ? value.length >= minRequiredLength : true;
+              //controller.$setValidity('mask', isValid);
+            //return isValid || linkOptions.allowPartial;
           }
 
-          function unmaskValue(value){
+          function unmaskValue(maskedvalue){
             var valueUnmasked = '',
               maskPatternsCopy = maskPatterns.slice();
             // Preprocess by stripping mask components from value
-            value = value.toString();
+              maskedvalue = maskedvalue.toString();
             angular.forEach(maskComponents, function (component){
-              value = value.replace(component, '');
+                maskedvalue = maskedvalue.replace(component, '');
             });
-            angular.forEach(value.split(''), function (chr){
+            angular.forEach(maskedvalue.split(''), function (chr){
               if (maskPatternsCopy.length && maskPatternsCopy[0].test(chr)) {
                 valueUnmasked += chr;
                 maskPatternsCopy.shift();
@@ -724,13 +727,23 @@ angular.module('ui.mask', [])
             oldCaretPosition = 0;
             oldSelectionLength = 0;
             //Removed this because it doesn't allow for partial input.
-            /*if (!isValid || value.length === 0) {
+              var val = iElement.val(),
+                  unmasked = unmaskValue(val);
+
+
+            if (!isValid || unmasked.length === 0) {
+
               valueMasked = '';
               iElement.val('');
               scope.$apply(function (){
-                controller.$setViewValue('');
+                controller.$setViewValue(iElement.val());
               });
-            }*/
+            } else  {
+
+              scope.$apply(function () {
+                  controller.$setViewValue(unmasked);
+              });
+            }
           }
 
           function mouseDownUpHandler(e){
@@ -741,7 +754,7 @@ angular.module('ui.mask', [])
             }
           }
 
-          //iElement.bind('mousedown mouseup', mouseDownUpHandler);
+          iElement.bind('mousedown mouseup', mouseDownUpHandler);
 
           function mouseoutHandler(){
             /*jshint validthis: true */
@@ -749,11 +762,7 @@ angular.module('ui.mask', [])
             iElement.unbind('mouseout', mouseoutHandler);
           }
 
-          //var lastInputEvent = new Date(); 
-          //var lastKeyupEvent = new Date(); 
           function eventHandler(e){
-            //console.log(e.type + " at " + new Date().getTime()); 
-            //console.log(iElement[0].selectionStart); 
             /*jshint validthis: true */
             e = e || {};
             // Allows more efficient minification
@@ -762,21 +771,6 @@ angular.module('ui.mask', [])
 
             // Prevent shift and ctrl from mucking with old values
             if (eventWhich === 16 || eventWhich === 91) { return;}
-
-           /* var timestamp = new Date(); 
-            if(eventType === "keyup") {
-              if(timestamp.getTime() - lastKeyupEvent.getTime() < 50) {
-                console.log("keyup event rejected"); 
-                return; 
-              }
-              lastKeyupEvent = timestamp; 
-            } else if(eventType === "input") {
-              if(timestamp.getTime() - lastInputEvent.getTime() < 50) {
-                console.log("input event rejected");
-                return; 
-              }
-              lastInputEvent = timestamp; 
-            }*/ 
 
             var val = iElement.val(),
               valOld = oldValue,
@@ -836,12 +830,15 @@ angular.module('ui.mask', [])
               valAltered = true;
             }
 
+
             // Update values
             valMasked = maskValue(valUnmasked);
 
             oldValue = valMasked;
             oldValueUnmasked = valUnmasked;
             iElement.val(valMasked);
+
+
             if (valAltered) {
               // We've altered the raw value after it's been $digest'ed, we need to $apply the new value.
               scope.$apply(function (){
